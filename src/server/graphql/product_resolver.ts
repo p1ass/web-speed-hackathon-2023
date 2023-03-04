@@ -14,11 +14,7 @@ export const productResolver: GraphQLModelResolver<Product> = {
     return productMediasLoader.load(parent.id);
   },
   offers: (parent) => {
-    return dataSource.manager.find(LimitedTimeOffer, {
-      where: {
-        product: parent,
-      },
-    });
+    return limitedTimeOffersLoader.load(parent.id);
   },
   reviews: (parent) => {
     return dataSource.manager.find(Review, {
@@ -43,17 +39,17 @@ const productMediasLoader = new DataLoader(async (keys): Promise<ProductMedia[][
   return keys.map((productId) => productMedias.filter((productMedia) => productMedia.product.id === productId));
 });
 
-// const limitedTimeOffersLoader = new DataLoader(async (keys): Promise<LimitedTimeOffer[][]> => {
-//   const limitedTimeOfferRepository = dataSource.getRepository(LimitedTimeOffer);
-//   const limitedTimeOffers = await limitedTimeOfferRepository.find({
-//     relations: {
-//       product: true,
-//     },
-//     where: {
-//       product: In(keys),
-//     },
-//   });
-//   return keys.map((productId) =>
-//     limitedTimeOffers.filter((limitedTimeOffer) => limitedTimeOffer.product.id === productId),
-//   );
-// });
+const limitedTimeOffersLoader = new DataLoader(async (keys): Promise<LimitedTimeOffer[][]> => {
+  const limitedTimeOfferRepository = dataSource.getRepository(LimitedTimeOffer);
+  const limitedTimeOffers = await limitedTimeOfferRepository.find({
+    relations: {
+      product: true,
+    },
+    where: {
+      product: In(keys),
+    },
+  });
+  return keys.map((productId) =>
+    limitedTimeOffers.filter((limitedTimeOffer) => limitedTimeOffer.product.id === productId),
+  );
+});
