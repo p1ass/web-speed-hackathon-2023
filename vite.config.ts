@@ -33,9 +33,12 @@ export default defineConfig(async () => {
           experimentalMinChunkSize: 40960,
           manualChunks: {
             coreJs: ['core-js'],
+            graphql: ['graphql', '@apollo/client'],
             icon: ['react-icons'],
             lodash: ['lodash'],
             react: ['react', 'react-dom'],
+            recoil: ['recoil'],
+            temporal: ['@js-temporal/polyfill'],
             zipcode: ['zipcode-ja'],
           },
         },
