@@ -4,16 +4,11 @@ import { Helmet } from 'react-helmet';
 
 import { Layout } from '../../components/application/Layout';
 import { ProductList } from '../../components/feature/ProductList';
+import { ProductHeroImage } from '../../components/product/ProductHeroImage';
 import { useFeatures } from '../../hooks/useFeatures';
 import { useRecommendation } from '../../hooks/useRecommendation';
 
 import * as styles from './Top.styles';
-
-const LazyProductHeroImage = lazy(() =>
-  import('../../components/product/ProductHeroImage').then(({ ProductHeroImage }) => ({
-    default: ProductHeroImage,
-  })),
-);
 
 export const Top: FC = () => {
   const { recommendation } = useRecommendation();
@@ -30,9 +25,7 @@ export const Top: FC = () => {
       </Helmet>
       <Layout>
         <div>
-          <Suspense fallback="loading">
-            <LazyProductHeroImage product={recommendation.product} title="今週のオススメ" />
-          </Suspense>
+          <ProductHeroImage product={recommendation.product} title="今週のオススメ" />
 
           <div className={styles.featureList()}>
             {features.map((featureSection) => {

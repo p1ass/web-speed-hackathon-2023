@@ -9,17 +9,12 @@ import { AspectRatio } from '../../components/foundation/AspectRatio';
 import { DeviceType, GetDeviceType } from '../../components/foundation/GetDeviceType';
 import { PrimaryAnchor } from '../../components/foundation/PrimaryAnchor';
 import { WidthRestriction } from '../../components/foundation/WidthRestriction';
+import { ProductHeroImage } from '../../components/product/ProductHeroImage';
 import { useAuthUser } from '../../hooks/useAuthUser';
 import { useRecommendation } from '../../hooks/useRecommendation';
 import { loadFonts } from '../../utils/load_fonts';
 
 import * as styles from './OrderComplete.styles';
-
-const LazyProductHeroImage = lazy(() =>
-  import('../../components/product/ProductHeroImage').then(({ ProductHeroImage }) => ({
-    default: ProductHeroImage,
-  })),
-);
 
 export const OrderComplete: FC = () => {
   const navigate = useNavigate();
@@ -69,9 +64,7 @@ export const OrderComplete: FC = () => {
 
                 <div className={styles.recommended()}>
                   <h2 className={styles.recommendedHeading()}>こちらの商品もオススメです</h2>
-                  <Suspense fallback="loading">
-                    <LazyProductHeroImage product={recommendation.product} title={recommendation.product.name} />
-                  </Suspense>
+                  <ProductHeroImage product={recommendation.product} title={recommendation.product.name} />
                 </div>
 
                 <div className={styles.backToTopButtonWrapper()}>

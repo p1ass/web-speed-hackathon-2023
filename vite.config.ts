@@ -32,7 +32,6 @@ export default defineConfig(async () => {
         output: {
           experimentalMinChunkSize: 40960,
           manualChunks: {
-            canvasKit: ['canvaskit-wasm'],
             coreJs: ['core-js'],
             icon: ['react-icons'],
             lodash: ['lodash'],
