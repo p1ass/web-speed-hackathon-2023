@@ -4,6 +4,7 @@ import { koaMiddleware } from '@as-integrations/koa';
 import gracefulShutdown from 'http-graceful-shutdown';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
+import compress from 'koa-compress';
 import logger from 'koa-logger';
 import route from 'koa-route';
 import send from 'koa-send';
@@ -34,6 +35,12 @@ async function init(): Promise<void> {
     ctx.set('Cache-Control', 'max-age=604800');
     await next();
   });
+
+  // app.use(
+  //   compress({
+  //     br: {},
+  //   }),
+  // );
 
   const apolloServer = await initializeApolloServer();
   await apolloServer.start();
