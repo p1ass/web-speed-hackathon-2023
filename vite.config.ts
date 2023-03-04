@@ -34,7 +34,6 @@ export default defineConfig(async () => {
           manualChunks: {
             graphql: ['graphql', '@apollo/client'],
             icon: ['react-icons'],
-            lodash: ['lodash'],
             react: ['react', 'react-dom'],
             recoil: ['recoil'],
             temporal: ['@js-temporal/polyfill'],
