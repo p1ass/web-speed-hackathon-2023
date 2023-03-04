@@ -37,7 +37,6 @@ export default defineConfig(async () => {
             icon: ['react-icons'],
             lodash: ['lodash'],
             react: ['react', 'react-dom'],
-            timezone: ['date-time-format-timezone'],
             zipcode: ['zipcode-ja'],
           },
         },
