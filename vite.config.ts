@@ -32,6 +32,8 @@ export default defineConfig(async () => {
         output: {
           experimentalMinChunkSize: 40960,
           manualChunks: {
+            canvasKit: ['canvaskit-wasm'],
+            coreJs: ['core-js'],
             icon: ['react-icons'],
             lodash: ['lodash'],
             react: ['react', 'react-dom'],
@@ -48,6 +50,7 @@ export default defineConfig(async () => {
           }),
         ],
       },
+      sourcemap: true,
       target: 'es2015',
     },
     plugins: [

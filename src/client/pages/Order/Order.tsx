@@ -13,7 +13,11 @@ import { useUpdateCartItem } from '../../hooks/useUpdateCartItems';
 
 import * as styles from './Order.styles';
 
-const LazyOrderForm = lazy(() => import('../../components/order/OrderForm'));
+const LazyOrderForm = lazy(() =>
+  import('../../components/order/OrderForm').then(({ OrderForm }) => ({
+    default: OrderForm,
+  })),
+);
 
 export const Order: FC = () => {
   const navigate = useNavigate();
