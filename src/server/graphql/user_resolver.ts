@@ -1,3 +1,6 @@
+import DataLoader from 'dataloader';
+import { In } from 'typeorm';
+
 import { Order } from '../../model/order';
 import { Profile } from '../../model/profile';
 import { Review } from '../../model/review';
@@ -15,11 +18,7 @@ export const userResolver: GraphQLModelResolver<User> = {
     });
   },
   profile: (parent) => {
-    return dataSource.manager.findOneOrFail(Profile, {
-      where: {
-        user: parent,
-      },
-    });
+    return profileResolver.load(parent.id);
   },
   reviews: (parent) => {
     return dataSource.manager.find(Review, {
@@ -29,3 +28,17 @@ export const userResolver: GraphQLModelResolver<User> = {
     });
   },
 };
+
+const profileResolver = new DataLoader(async (keys): Promise<Profile[]> => {
+  const profileRepository = dataSource.getRepository(Profile);
+  const profiles = await profileRepository.find({
+    relations: {
+      avatar: true,
+      user: true,
+    },
+    where: {
+      user: In(keys),
+    },
+  });
+  return profiles;
+});

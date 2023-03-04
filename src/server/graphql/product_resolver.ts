@@ -17,11 +17,7 @@ export const productResolver: GraphQLModelResolver<Product> = {
     return limitedTimeOffersLoader.load(parent.id);
   },
   reviews: (parent) => {
-    return dataSource.manager.find(Review, {
-      where: {
-        product: parent,
-      },
-    });
+    return reviewsLoader.load(parent.id);
   },
 };
 
@@ -52,4 +48,18 @@ const limitedTimeOffersLoader = new DataLoader(async (keys): Promise<LimitedTime
   return keys.map((productId) =>
     limitedTimeOffers.filter((limitedTimeOffer) => limitedTimeOffer.product.id === productId),
   );
+});
+
+const reviewsLoader = new DataLoader(async (keys): Promise<Review[][]> => {
+  const reviewRepository = dataSource.getRepository(Review);
+  const reviews = await reviewRepository.find({
+    relations: {
+      product: true,
+      user: true,
+    },
+    where: {
+      product: In(keys),
+    },
+  });
+  return keys.map((productId) => reviews.filter((review) => review.product.id === productId));
 });
