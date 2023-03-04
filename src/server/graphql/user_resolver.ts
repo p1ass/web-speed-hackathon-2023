@@ -40,5 +40,5 @@ const profileResolver = new DataLoader(async (keys): Promise<Profile[]> => {
       user: In(keys),
     },
   });
-  return profiles;
+  return keys.map((userId) => profiles.filter((profile) => profile.user.id === userId)[0]);
 });

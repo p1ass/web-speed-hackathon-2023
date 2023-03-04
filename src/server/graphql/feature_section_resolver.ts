@@ -1,5 +1,3 @@
-import DataLoader from 'dataloader';
-
 import { FeatureItem } from '../../model/feature_item';
 import type { FeatureSection } from '../../model/feature_section';
 import { dataSource } from '../data_source';

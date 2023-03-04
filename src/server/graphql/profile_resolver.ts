@@ -20,5 +20,5 @@ const avatarResolver = new DataLoader(async (keys): Promise<MediaFile[]> => {
       id: In(keys),
     },
   });
-  return avatars;
+  return keys.map((avatarId) => avatars.filter((avatar) => avatar.id === avatarId)[0]);
 });
