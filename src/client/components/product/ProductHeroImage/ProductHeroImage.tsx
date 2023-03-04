@@ -20,7 +20,7 @@ async function loadImageAsDataURL(url: string): Promise<string> {
   });
 
   // 画像を読み込む
-  const data = await fetch(url).then((res) => res.arrayBuffer());
+  const data = await fetch(url.replace('avif', 'jpg')).then((res) => res.arrayBuffer());
   const image = CanvasKit.MakeImageFromEncoded(data);
   if (image == null) {
     // 読み込みに失敗したとき、透明な 1x1 GIF の Data URL を返却する
