@@ -6,12 +6,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends dumb-init sqlit
 RUN npm install -g pnpm
 RUN mkdir /app
 WORKDIR /app
-COPY package.json pnpm-lock.yaml tsconfig.json tsconfig.node.json vite.config.ts index.html .npmrc /app/
+COPY package.json pnpm-lock.yaml /app/
+RUN pnpm install
+COPY tsconfig.json tsconfig.node.json vite.config.ts index.html .npmrc /app/
 COPY databases/ /app/databases/
 COPY public/ /app/public/
 COPY tools/ /app/tools/
 COPY src/ /app/src/
-RUN pnpm install
 RUN pnpm build
 
 ########################################################################

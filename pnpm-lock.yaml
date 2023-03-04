@@ -33,6 +33,7 @@ specifiers:
   cross-env: 7.0.3
   csstype: 3.1.1
   currency-formatter: 1.5.9
+  dataloader: 2.2.2
   date-time-format-timezone: 1.0.22
   eslint: 8.29.0
   eslint-config-prettier: 8.5.0
@@ -100,6 +101,7 @@ dependencies:
   classnames: 2.3.2
   core-js: 3.29.0
   currency-formatter: 1.5.9
+  dataloader: 2.2.2
   date-time-format-timezone: 1.0.22
   formik: 2.2.9_react@18.2.0
   graphql: 16.6.0
@@ -2639,6 +2641,10 @@ packages:
       accounting: 0.4.1
       locale-currency: 0.0.2
       object-assign: 4.1.1
+    dev: false
+
+  /dataloader/2.2.2:
+    resolution: {integrity: sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==}
     dev: false
 
   /date-fns/2.29.3:
