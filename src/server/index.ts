@@ -10,6 +10,7 @@ import route from 'koa-route';
 import send from 'koa-send';
 import session from 'koa-session';
 import serve from 'koa-static';
+import staticCache from 'koa-static-cache';
 
 import type { Context } from './context';
 import { dataSource } from './data_source';
@@ -39,6 +40,9 @@ async function init(): Promise<void> {
   // app.use(
   //   compress({
   //     br: {},
+  //     filter(content_type) {
+  //       return /text/i.test(content_type) || /image/i.test(content_type) || /javascript/i.test(content_type);
+  //     },
   //   }),
   // );
 
@@ -63,8 +67,18 @@ async function init(): Promise<void> {
     }),
   );
 
-  app.use(serve(rootResolve('dist')));
-  app.use(serve(rootResolve('public')));
+  app.use(
+    staticCache(rootResolve('dist'), {
+      gzip: true,
+      maxAge: 24 * 60 * 60,
+    }),
+  );
+  app.use(
+    staticCache(rootResolve('public'), {
+      gzip: true,
+      maxAge: 24 * 60 * 60,
+    }),
+  );
 
   app.use(async (ctx) => await send(ctx, rootResolve('/dist/index.html')));
 
