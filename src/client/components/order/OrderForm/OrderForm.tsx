@@ -19,6 +19,8 @@ type Props = {
   onSubmit: (orderFormValue: OrderFormValue) => void;
 };
 
+const clonedZipCodeJa = _.cloneDeep(zipcodeJa);
+
 export const OrderForm: FC<Props> = ({ onSubmit }) => {
   const formik = useFormik<OrderFormValue>({
     initialValues: {
@@ -34,7 +36,7 @@ export const OrderForm: FC<Props> = ({ onSubmit }) => {
     formik.handleChange(event);
 
     const zipCode = event.target.value;
-    const address = [...(_.cloneDeep(zipcodeJa)[zipCode]?.address ?? [])];
+    const address = [...(clonedZipCodeJa[zipCode]?.address ?? [])];
     const prefecture = address.shift();
     const city = address.join(' ');
 
