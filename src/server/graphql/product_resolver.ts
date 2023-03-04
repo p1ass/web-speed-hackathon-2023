@@ -17,7 +17,11 @@ export const productResolver: GraphQLModelResolver<Product> = {
     return limitedTimeOffersLoader.load(parent.id);
   },
   reviews: (parent) => {
-    return reviewsLoader.load(parent.id);
+    return dataSource.manager.find(Review, {
+      where: {
+        product: parent,
+      },
+    });
   },
 };
 
