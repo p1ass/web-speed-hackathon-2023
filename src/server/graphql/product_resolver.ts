@@ -17,7 +17,7 @@ export const productResolver: GraphQLModelResolver<Product> = {
     return limitedTimeOffersLoader.load(parent.id);
   },
   reviews: (parent) => {
-    return reviewsLoader.load(parent.id);
+    return reviewsDataLoader.load(parent.id);
   },
 };
 
@@ -50,7 +50,7 @@ const limitedTimeOffersLoader = new DataLoader(async (keys): Promise<LimitedTime
   );
 });
 
-const reviewsLoader = new DataLoader(async (keys): Promise<Review[][]> => {
+export const reviewsDataLoader = new DataLoader(async (keys): Promise<Review[][]> => {
   const reviewRepository = dataSource.getRepository(Review);
   const reviews = await reviewRepository.find({
     relations: {

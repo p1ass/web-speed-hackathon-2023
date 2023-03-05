@@ -10,6 +10,10 @@ import { User } from '../../model/user';
 import type { Context } from '../context';
 import { dataSource } from '../data_source';
 
+import { reviewsDataLoader } from './product_resolver';
+import { reviewsLoader } from './review_resolver';
+import { shoppingCartItemsResolver } from './shopping_cart_item_resolver';
+
 type MutationResolver = {
   signin: GraphQLFieldResolver<unknown, Context, { email: string; password: string }, Promise<boolean>>;
   signup: GraphQLFieldResolver<unknown, Context, { email: string; name: string; password: string }, Promise<boolean>>;
@@ -49,6 +53,8 @@ export const mutationResolver: MutationResolver = {
       },
     );
 
+    shoppingCartItemsResolver.clearAll();
+
     return true;
   },
   sendReview: async (_parent, args, { session }) => {
@@ -70,6 +76,9 @@ export const mutationResolver: MutationResolver = {
         },
       }),
     );
+
+    reviewsLoader.clearAll();
+    reviewsDataLoader.clearAll();
 
     return true;
   },
@@ -160,6 +169,8 @@ export const mutationResolver: MutationResolver = {
         conflictPaths: ['order.id', 'product.id'],
       },
     );
+
+    shoppingCartItemsResolver.clearAll();
 
     return true;
   },
