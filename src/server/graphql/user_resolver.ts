@@ -18,11 +18,7 @@ export const userResolver: GraphQLModelResolver<User> = {
     });
   },
   profile: (parent) => {
-    return dataSource.manager.findOneOrFail(Profile, {
-      where: {
-        user: parent,
-      },
-    });
+    return profileResolver.load(parent.id);
   },
   reviews: (parent) => {
     return dataSource.manager.find(Review, {
