@@ -49,8 +49,8 @@ export default defineConfig(async () => {
           }),
         ],
       },
-      sourcemap: true,
-      target: 'es2015',
+      sourcemap: false,
+      target: 'esnext',
     },
     plugins: [
       react(),
